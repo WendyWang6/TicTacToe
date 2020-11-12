@@ -34,6 +34,35 @@ class Square extends React.Component {
 }
 */
 
+//<img className="player1" src={pieceX} alt="pieceX" />
+//<img className="player2" src={pieceO} alt="pieceO" />
+
+
+
+// Make pieces components
+class Piece extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pieceImg: null 
+        };
+    }
+
+    render() {
+        if (this.props.value) {
+            let replace = this.props.xIsNext ? "X" : "O"
+            this.setState({ pieceImg: replace })
+        }
+        
+        return (
+            <div>
+                {this.state.pieceImg}
+            </div>
+        );
+    }
+
+
+}
 
 
 
@@ -48,7 +77,10 @@ function Square(props) {
     */
     return (
         <button className="square" data-pro={props.value} data-win={props.win} onClick={props.onClick}>
-            {props.value}
+            <Piece
+                value={props.value}
+                xIsNext={props.xIsNext}
+            />
         </button>
     );
 }
@@ -66,6 +98,7 @@ class Board extends React.Component {
                 value={this.props.squares[i]}
                 onClick={() => this.props.onClick(i)}
                 win={win}
+                xIsNext={this.props.xIsNext}
             />
         );
     }
@@ -126,7 +159,7 @@ class Game extends React.Component {
         if (winner || squares[i]) {
             return;
         }
-        squares[i] = this.state.xIsNext ? <img className="player1" src={pieceX} alt="pieceX" />  : <img className="player2" src={pieceO} alt="pieceO" />;  //*************************
+        squares[i] = this.state.xIsNext ? "X" : "O"
         this.setState({
             history: history.concat([
                 {
@@ -181,6 +214,7 @@ class Game extends React.Component {
                         squares={current.squares}
                         winningLine={winningLine}
                         onClick={i => this.handleClick(i)}
+                        xIsNext={this.state.xIsNext}
                     />
                 </div>
                 <div className="game-info">
@@ -220,8 +254,8 @@ function calculateWinner(squares) {
         const [a, b, c] = lines[i];
         // debug
         console.log("test", squares[a]);
-        if (squares[a] && squares[a].src && squares[a].src === squares[b].src && squares[a].src === squares[c].src) { 
-            return { winner: squares[a].className, match: lines[i] };
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { 
+            return { winner: squares[a], match: lines[i] };
         }
     }
     
