@@ -1,0 +1,86 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+}
+
+ol, ul {
+    padding-left: 30px;
+}
+
+.board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.status {
+    margin-bottom: 10px;
+}
+
+.square {
+    background: #F19582;
+    border: 3px solid #82210D;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 90px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 90px;
+}
+
+    .square:focus {
+        outline: none;
+    }
+
+.kbd-navigation .square:focus {
+    background: #ddd;
+}
+
+.game {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-info {
+    margin-left: 20px;
+}
+
+/*change the X and O color*/
+button.square[data-pro="X"] {
+    color: red;
+}
+
+button.square[data-pro="O"] {
+    color: green;
+}
+
+/*change winning line's background color*/
+button.square[data-win=true] {
+    background: yellow;
+}
+
+.player1 {
+    height: 59px;
+    width: 59px;
+}
+.player2 {
+    height: 59px;
+    width: 59px;
+}
+
+imag.player1{
+    height: 60px;
+    width: 60px;
+}
+
+imag.player2 {
+    height: 60px;
+    width: 60px;
+}
+
+
+
