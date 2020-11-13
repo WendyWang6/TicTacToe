@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import pieceX from './cat_piece.png'; // Tell webpack this JS file uses this image
-import pieceO from './dog_piece.png'; 
+import pieceX from './cat.png'; // Tell webpack this JS file uses this image
+import pieceO from './dog.png'; 
 
 
 
@@ -38,51 +38,60 @@ class Square extends React.Component {
 //<img className="player2" src={pieceO} alt="pieceO" />
 
 
-
-// Make pieces components
+/*
 class Piece extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            pieceImg: null 
-        };
+        
     }
-
+    
+    changeState(replace) {
+        this.setState({ pieceImg: replace }); 
+    }
+    
     render() {
+        let piece = null
         if (this.props.value) {
-            let replace = this.props.xIsNext ? "X" : "O"
-            this.setState({ pieceImg: replace })
+            piece = this.props.xIsNext ? <img className="player1" src={pieceX} alt="pieceX" /> : <img className="player2" src={pieceO} alt="pieceO" /> 
         }
         
         return (
             <div>
-                {this.state.pieceImg}
+                {piece}
             </div>
         );
     }
-
-
 }
-
+*/
 
 
 // replace the Square class by this function component
-function Square(props) {
-    // make square communicate with CSS and let CSS file change the color of the squares consisting of the winning line
+class Square extends React.Component {
+   
     /*
-    let win = false;
-    if(props.winningLine && props.winningLine.includes(i)){
-      win = true; 
-    }
+    // This code was used to pass props into Piece component
+    <Piece
+        value={props.value}
+        xIsNext={props.xIsNext}
+    />
     */
-    return (
-        <button className="square" data-pro={props.value} data-win={props.win} onClick={props.onClick}>
-            <Piece
-                value={props.value}
-                xIsNext={props.xIsNext}
-            />
-        </button>
-    );
+    constructor(props) {
+        super(props);
+
+    }
+
+    render() {
+        let piece = null
+        if (this.props.value) {
+            piece = this.props.value === "X" ? <img className="player1" src={pieceX} alt="pieceX" /> : <img className="player2" src={pieceO} alt="pieceO" />
+        }
+
+        return (
+            <button className="square" data-pro={this.props.value} data-win={this.props.win} onClick={this.props.onClick}>
+                {piece}
+            </button>
+        );
+    }
 }
 
 class Board extends React.Component {
